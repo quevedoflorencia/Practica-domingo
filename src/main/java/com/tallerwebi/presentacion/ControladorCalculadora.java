@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,6 +35,22 @@ public class ControladorCalculadora {
         modelo.put("calculadoraData", new CalculadoraData());
         return new ModelAndView("calculadora", modelo);
     }
+
+    @RequestMapping(path = "/calcular", method = RequestMethod.POST)
+    public ModelAndView procesarFormulario(@ModelAttribute ("calculadoraData") CalculadoraData calculadoraData ) {
+        ModelMap modelo = new ModelMap();
+        double resultado = 0;
+
+        calculadoraData.setResultado(resultado);
+        double resultadoFinal= servicioCalculadora.calcular(calculadoraData.getOperando1(), calculadoraData.getOperando2(), calculadoraData.getOperador(), calculadoraData.getResultado());
+        modelo.put("resultadoFinal", resultadoFinal);
+
+        return new ModelAndView("calculadora", modelo);
+
+
+    }
+
+
 /*
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
@@ -48,7 +65,7 @@ public class ControladorCalculadora {
         }
         return new ModelAndView("login", model);
     }*/
-
+/*
     @RequestMapping(path = "/calcular", method = RequestMethod.POST)
     public ModelAndView calcular(@ModelAttribute("calculadoraData") CalculadoraData calculadoraData) {
         ModelMap model = new ModelMap();
@@ -57,7 +74,11 @@ public class ControladorCalculadora {
         Double oper2 = calculadoraData.getOperando2();
         String operacion = calculadoraData.getOperador();
 
-        Double resultado = servicioCalculadora.calcular(oper1, oper2, operacion);
+
+
+        //Double resultado = servicioCalculadora.calcular(oper1, oper2, operacion);
+        Double resultado = servicioCalculadora.calcular(calculadoraData.getOperando1(), calculadoraData.getOperando2(), calculadoraData.getOperador());
+
         model.put("resultado", resultado);
         model.put("msg", "se imprime");
         return new ModelAndView("calculadora", model);

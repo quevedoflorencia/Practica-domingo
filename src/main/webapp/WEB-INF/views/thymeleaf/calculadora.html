@@ -1,149 +1,36 @@
-<!DOCTYPE HTML>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Taller Web I</title>
-
-  <!-- Boostrap core css -->
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-
-  <!-- custom style -->
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
+  <title>Calculadora</title>
 </head>
-
 <body>
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">UNLAM</a>
-</nav>
-
-<main role="main" class="container">
-  <div class = "container">
-    <h1>Bienvenidos a las Tías Calculando</h1>
-
-    <style>
-      body {
-          font-family: Arial, sans-serif;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          margin: 0;
-          background-color: #f0f0f0;
-      }
-      .calculadora {
-          width: 25%;
-          background-color: #fff;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-          padding: 20px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-      }
-      .display {
-          font-size: 2em;
-          margin-bottom: 20px;
-          padding: 10px;
-          text-align: right;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-      }
-      .boton {
-          font-size: 1.5em;
-          width: 50px;
-          height: 50px;
-          margin: 5px;
-          border: none;
-          border-radius: 5px;
-          background-color: #f1f1f1;
-          cursor: pointer;
-      }
-      .boton:active {
-          background-color: #ccc;
-      }
-      .boton-operador {
-          background-color: #ff9f00;
-          color: #fff;
-      }
-    </style>
-    </head>
-    <body>
-    <div class="calculadora">
-      <div id="display" class="display">0</div>
-      <form th:action="@{/calcular}" method="post" th:object="${calculadoraData}" id="calcForm">
-        <input type="hidden" th:field="*{operando1}" id="operando1">
-        <input type="hidden" th:field="*{operando2}" id="operando2">
-        <input type="hidden" th:field="*{operador}" id="operador">
-        <button type="button" class="boton" onclick="appendNumber('1')">1</button>
-        <button type="button" class="boton" onclick="appendNumber('2')">2</button>
-        <button type="button" class="boton" onclick="appendNumber('3')">3</button>
-        <button type="button" class="boton boton-operador" onclick="chooseOperation('+')">+</button>
-        <br>
-        <button type="button" class="boton" onclick="appendNumber('4')">4</button>
-        <button type="button" class="boton" onclick="appendNumber('5')">5</button>
-        <button type="button" class="boton" onclick="appendNumber('6')">6</button>
-        <button type="button" class="boton boton-operador" onclick="chooseOperation('-')">-</button>
-        <br>
-        <button type="button" class="boton" onclick="appendNumber('7')">7</button>
-        <button type="button" class="boton" onclick="appendNumber('8')">8</button>
-        <button type="button" class="boton" onclick="appendNumber('9')">9</button>
-        <button type="button" class="boton boton-operador" onclick="chooseOperation('*')">*</button>
-        <br>
-        <button type="button" class="boton" onclick="appendNumber('0')">0</button>
-        <button type="button" class="boton" onclick="clearDisplay()">C</button>
-        <button type="submit" class="boton">=</button>
-        <button type="button" class="boton boton-operador" onclick="chooseOperation('/')">/</button>
-      </form>
-      <p th:if="${resultado != null}" class="alert alert-success" th:text="'Resultado: ' + ${resultado}"></p>
-      <p th:if="${msg != null}" class="alert alert-danger" th:text="${msg}"></p>
-    </div>
-    <script>
-      let displayElement = document.getElementById('display');
-      let currentOperand = '';
-      let previousOperand = '';
-      let operation = null;
-
-      function appendNumber(number) {
-          if (currentOperand.includes('.') && number === '.') return;
-          currentOperand = currentOperand.toString() + number.toString();
-          updateDisplay();
-      }
-
-      function updateDisplay() {
-          displayElement.innerText = currentOperand;
-      }
-
-      function chooseOperation(op) {
-          if (currentOperand === '') return;
-          if (previousOperand !== '') {
-              document.getElementById('operando1').value = previousOperand;
-              document.getElementById('operando2').value = currentOperand;
-              document.getElementById('operador').value = operation;
-              document.getElementById('calcForm').submit();
-          }
-          operation = op;
-          previousOperand = currentOperand;
-          currentOperand = '';
-      }
-
-      function clearDisplay() {
-          currentOperand = '';
-          previousOperand = '';
-          operation = undefined;
-          updateDisplay();
-      }
-    </script>
-    </body>
-
-    <a href="login.html" class="btn btn-lg btn-primary btn-block">Volver</a>
+<h1>Calculadora Simple</h1>
+<form action="#" th:action="@{/calcular}" th:object="${calculadoraData}" method="post">
+  <label for="operando1">Operando 1:</label>
+  <input type="number" id="operando1" th:field="*{operando1}" required/>
+  <br/>
+  <label for="operando2">Operando 2:</label>
+  <input type="number" id="operando2" th:field="*{operando2}" required/>
+  <br/>
+  <label for="operador">Operación:</label>
+  <select id="operador" th:field="*{operador}" required>
+    <option value="sumar">Sumar</option>
+    <option value="restar">Restar</option>
+    <option value="multiplicar">Multiplicar</option>
+    <option value="dividir">Dividir</option>
+  </select>
+  <br/>
+  <button type="submit">Calcular</button>
+  <div>
+    <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-light">Resetear</a>
   </div>
-</main>
-<!-- /.container -->
 
-<!-- Boostrap core js -->
-<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</form>
+<div th:if="${resultadoFinal != 0}">
+  <h2>Resultado: <span th:text="${resultadoFinal}"></span></h2>
+</div>
+<div th:if="${error != null}">
+  <h2>Error: <span th:text="${error}"></span></h2>
+</div>
 </body>
 </html>

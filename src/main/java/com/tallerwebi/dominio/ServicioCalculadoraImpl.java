@@ -7,13 +7,25 @@ public class ServicioCalculadoraImpl implements ServicioCalculadora{
 
     @Override
 
-    public Double calcular(Double oper1, Double oper2, String operacion) {
+    public double calcular(double oper1, double oper2, String operacion, double resultado) {
 
-        Double resultado = null;
-        if (operacion == "+") {
-            resultado = oper1 + oper2;
-
+        switch (operacion) {
+            case "sumar":
+                resultado = oper1 + oper2;
+                break;
+            case "restar":
+                resultado = oper1 - oper2;
+                break;
+            case "multiplicar":
+                resultado = oper1 * oper2;
+                break;
+            case "dividir":
+                if (oper2 != 0) {
+                    resultado = oper1 / oper2;
+                }
+                break;
         }
+
         return resultado;
     }
 }

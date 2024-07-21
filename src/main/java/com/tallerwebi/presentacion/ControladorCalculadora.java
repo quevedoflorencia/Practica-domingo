@@ -1,5 +1,7 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.CalculadoraData;
+import com.tallerwebi.dominio.ServicioCalculadora;
 import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
@@ -14,23 +16,25 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ControladorLogin {
+public class ControladorCalculadora {
 
-    private ServicioLogin servicioLogin;
+    private ServicioCalculadora servicioCalculadora;
+
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin){
-        this.servicioLogin = servicioLogin;
+    public ControladorCalculadora(ServicioCalculadora servicioCalculadora){
+        this.servicioCalculadora = servicioCalculadora;
     }
 
-    @RequestMapping("/login")
-    public ModelAndView irALogin() {
+    @RequestMapping("/calculadora")
+    public ModelAndView mostrarCalculadora() {
 
         ModelMap modelo = new ModelMap();
-        modelo.put("datosLogin", new DatosLogin());
-        return new ModelAndView("login", modelo);
-    }
 
+        modelo.put("calculadoraData", new CalculadoraData());
+        return new ModelAndView("calculadora", modelo);
+    }
+/*
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
         ModelMap model = new ModelMap();
@@ -38,16 +42,27 @@ public class ControladorLogin {
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
         if (usuarioBuscado != null) {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
-            return new ModelAndView("redirect:/calculadora");
+            return new ModelAndView("redirect:/home");
         } else {
             model.put("error", "Usuario o clave incorrecta");
         }
         return new ModelAndView("login", model);
-    }
+    }*/
 
-    @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
-    public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
+    @RequestMapping(path = "/calcular", method = RequestMethod.POST)
+    public ModelAndView calcular(@ModelAttribute("calculadoraData") CalculadoraData calculadoraData) {
         ModelMap model = new ModelMap();
+
+        Double oper1 = calculadoraData.getOperando1();
+        Double oper2 = calculadoraData.getOperando2();
+        String operacion = calculadoraData.getOperador();
+
+        Double resultado = servicioCalculadora.calcular(oper1, oper2, operacion);
+        model.put("resultado", resultado);
+        model.put("msg", "se imprime");
+        return new ModelAndView("calculadora", model);
+    }
+        /*
         try{
             servicioLogin.registrar(usuario);
         } catch (UsuarioExistente e){
@@ -59,7 +74,7 @@ public class ControladorLogin {
         }
         return new ModelAndView("redirect:/login");
     }
-
+/*
     @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
     public ModelAndView nuevoUsuario() {
         ModelMap model = new ModelMap();
@@ -75,6 +90,5 @@ public class ControladorLogin {
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
         return new ModelAndView("redirect:/login");
-    }
+    }*/
 }
-

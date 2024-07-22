@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ControladorCalculadora {
@@ -35,8 +36,8 @@ public class ControladorCalculadora {
 
     @RequestMapping(path = "/calcular", method = RequestMethod.POST)
     public ModelAndView procesarFormulario(@ModelAttribute ("calculadoraData") CalculadoraData calculadoraData ) {
-        ModelMap modelo = new ModelMap();
 
+        ModelMap modelo = new ModelMap();
 
         double resultadoFinal= servicioCalculadora.calcular(calculadoraData.getOperando1(), calculadoraData.getOperando2(), calculadoraData.getOperador());
         calculadoraData.setResultado(resultadoFinal);
@@ -46,6 +47,18 @@ public class ControladorCalculadora {
 
 
         return new ModelAndView("calculadora", modelo);
+
+
+    }
+    @RequestMapping(path = "/historial")
+    public ModelAndView procesarFormulario() {
+
+        ModelMap modelo = new ModelMap();
+
+       List<CalculadoraData> historial= servicioCalculadora.obtenerHistorial();
+
+        modelo.put("historial", historial);
+        return new ModelAndView("historial", modelo);
 
 
     }

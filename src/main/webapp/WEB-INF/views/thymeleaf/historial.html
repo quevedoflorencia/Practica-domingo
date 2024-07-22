@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+</head>
+<body>
+<main role="main" class="container">
+    <div class="container pt-2">
+        <h1 id="resultados">Historial de Cálculos</h1> <!--
+        <div th:each="hitorial : ${historial}">
+
+            <h2 th:text="${historial.resultado}"></span></h2>
+        </div> -->
+
+            <ul>
+                <li th:each="historial : ${historial}">
+                    <span th:text="${historial.id}"></span>
+                    <span th:text="${historial.operando1}"></span>
+                    <span th:text="${historial.operador}"></span>
+                    <span th:text="${historial.operando2}"></span> =
+                    <span th:text="${historial.resultado}"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

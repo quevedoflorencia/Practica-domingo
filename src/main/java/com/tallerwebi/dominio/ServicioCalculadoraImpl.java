@@ -1,13 +1,22 @@
 package com.tallerwebi.dominio;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ServicioCalculadoraImpl implements ServicioCalculadora{
-    private List<CalculadoraData> historialCalculos = new ArrayList<>();
+    //private List<CalculadoraData> historialCalculos = new ArrayList<>();
+    private RepositorioCalculadora repositorioCalculadora;
+
+    @Autowired
+    public ServicioCalculadoraImpl (RepositorioCalculadora repositorioCalculadora){
+        this.repositorioCalculadora=repositorioCalculadora;
+    }
 
     @Override
     public double calcular(double oper1, double oper2, String operador) {
@@ -36,12 +45,15 @@ public class ServicioCalculadoraImpl implements ServicioCalculadora{
 
         return resultado;
     }
-
+/*
     public void guardarCalculo(CalculadoraData calculadoraData) {
         historialCalculos.add(calculadoraData);
+    }*/
+    public void guardarCalculo (CalculadoraData calculadoraData){
+        repositorioCalculadora.guardarCalculo(calculadoraData);
     }
 
     public List<CalculadoraData> obtenerHistorial() {
-        return historialCalculos;
+        return repositorioCalculadora.obtenerHistorial();
     }
 }

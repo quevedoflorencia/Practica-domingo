@@ -1,7 +1,7 @@
 package com.tallerwebi.dominio;
 
 public class CalculadoraData {
-
+    private Long id;
     private double operando1;
     private double operando2;
     private String operador;
@@ -20,6 +20,14 @@ public class CalculadoraData {
         this.operando1 = operando1;
         this.operando2 = operando2;
         this.operador = operador;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getOperando1() {

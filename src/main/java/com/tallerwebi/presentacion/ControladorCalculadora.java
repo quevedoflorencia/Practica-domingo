@@ -8,10 +8,7 @@ import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,16 +36,20 @@ public class ControladorCalculadora {
     @RequestMapping(path = "/calcular", method = RequestMethod.POST)
     public ModelAndView procesarFormulario(@ModelAttribute ("calculadoraData") CalculadoraData calculadoraData ) {
         ModelMap modelo = new ModelMap();
-        double resultado = 0;
 
-        calculadoraData.setResultado(resultado);
-        double resultadoFinal= servicioCalculadora.calcular(calculadoraData.getOperando1(), calculadoraData.getOperando2(), calculadoraData.getOperador(), calculadoraData.getResultado());
+
+        double resultadoFinal= servicioCalculadora.calcular(calculadoraData.getOperando1(), calculadoraData.getOperando2(), calculadoraData.getOperador());
+        calculadoraData.setResultado(resultadoFinal);
+        servicioCalculadora.guardarCalculo(calculadoraData);
         modelo.put("resultadoFinal", resultadoFinal);
+        modelo.put("historial", servicioCalculadora.obtenerHistorial());
+
 
         return new ModelAndView("calculadora", modelo);
 
 
     }
+
 
 
 /*

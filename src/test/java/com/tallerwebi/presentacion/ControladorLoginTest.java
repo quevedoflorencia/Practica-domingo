@@ -43,6 +43,7 @@ public class ControladorLoginTest {
 		// ejecucion
 		ModelAndView modelAndView = controladorLogin.validarLogin(datosLoginMock, requestMock);
 
+
 		// validacion
 		assertThat(modelAndView.getViewName(), equalToIgnoringCase("login"));
 		assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("Usuario o clave incorrecta"));

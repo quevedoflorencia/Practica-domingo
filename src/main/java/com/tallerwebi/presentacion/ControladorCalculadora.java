@@ -55,11 +55,10 @@ public class ControladorCalculadora {
 
         ModelMap modelo = new ModelMap();
 
-       List<CalculadoraData> historial= servicioCalculadora.obtenerHistorial();
+        List<CalculadoraData> historial= servicioCalculadora.obtenerHistorial();
 
         modelo.put("historial", historial);
         return new ModelAndView("historial", modelo);
-
 
     }
 

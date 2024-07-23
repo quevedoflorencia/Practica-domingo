@@ -4,10 +4,11 @@ import com.tallerwebi.dominio.CalculadoraData;
 import com.tallerwebi.dominio.RepositorioCalculadora;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -31,4 +32,18 @@ public class RepositorioCalculadoraImpl implements RepositorioCalculadora {
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
+
+
+    @Override
+
+    public List<CalculadoraData> obtenerCalculosPorFecha(LocalDate fechaABuscar) {
+        return sessionFactory.getCurrentSession()
+                .createCriteria(CalculadoraData.class)
+                .add(Restrictions.eq("fecha",fechaABuscar))
+                .list();
+    }
+
+
+
+
 }

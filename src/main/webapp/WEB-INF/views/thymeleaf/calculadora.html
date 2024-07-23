@@ -31,6 +31,7 @@
       <button type="submit" class="btn btn-primary">Calcular</button>
       <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-light">Resetear</a>
       <a th:href="@{'/historial'}" class="btn btn-outline-dark btn-light">Historial</a>
+      <a th:href="@{'/historial-fecha'}" class="btn btn-outline-dark btn-light">Historial por fecha</a>
     </form>
     <div th:if="${resultadoFinal != null}">
       <h2>Resultado: <span th:text="${resultadoFinal}"></span></h2>

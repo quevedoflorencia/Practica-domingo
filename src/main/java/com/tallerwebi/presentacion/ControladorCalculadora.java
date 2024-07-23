@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -41,14 +44,13 @@ public class ControladorCalculadora {
 
         double resultadoFinal= servicioCalculadora.calcular(calculadoraData.getOperando1(), calculadoraData.getOperando2(), calculadoraData.getOperador());
         calculadoraData.setResultado(resultadoFinal);
+        calculadoraData.setFecha(LocalDate.now());
         servicioCalculadora.guardarCalculo(calculadoraData);
         modelo.put("resultadoFinal", resultadoFinal);
         modelo.put("historial", servicioCalculadora.obtenerHistorial());
 
 
         return new ModelAndView("calculadora", modelo);
-
-
     }
     @RequestMapping(path = "/historial")
     public ModelAndView procesarFormulario() {
@@ -59,8 +61,30 @@ public class ControladorCalculadora {
 
         modelo.put("historial", historial);
         return new ModelAndView("historial", modelo);
+    }
 
+    @RequestMapping(path = "/historial-fecha", method = RequestMethod.GET)
+    public ModelAndView mostrarFormulario() {
+        ModelMap modelo = new ModelMap();
+        modelo.put("calculadoraData", new CalculadoraData());
+        return new ModelAndView("historial-fecha", modelo);
+    }
 
+    @RequestMapping(path = "/historial-fecha", method = RequestMethod.POST)
+    public ModelAndView historialPorFechaIngresada(@ModelAttribute ("calculadoraData") CalculadoraData calculadoraData ) {
+
+        ModelMap modelo = new ModelMap();
+
+        LocalDate fechaABuscar= calculadoraData.getFecha();
+
+        List<CalculadoraData> historialPorFecha =servicioCalculadora.obtenerCalculosPorFecha(fechaABuscar);
+
+        if (historialPorFecha.isEmpty()) {
+            modelo.put("mensaje", "No se encontraron cálculos para la fecha ingresada.");
+        } else {
+            modelo.put("historialFecha", historialPorFecha);
+        }
+        return new ModelAndView("historial-fecha", modelo);
     }
 
 

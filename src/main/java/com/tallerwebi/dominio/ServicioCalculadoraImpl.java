@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,5 +57,11 @@ public class ServicioCalculadoraImpl implements ServicioCalculadora{
 
     public List<CalculadoraData> obtenerHistorial() {
         return repositorioCalculadora.obtenerHistorial();
+    }
+
+
+    @Override
+    public List<CalculadoraData> obtenerCalculosPorFecha(LocalDate fechaABuscar) {
+        return repositorioCalculadora.obtenerCalculosPorFecha(fechaABuscar);
     }
 }

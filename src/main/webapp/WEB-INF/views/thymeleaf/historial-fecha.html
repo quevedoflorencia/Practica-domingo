@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Cálculos por Fecha</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+</head>
+<body>
+<main role="main" class="container">
+
+    <div class="container pt-2">
+        <h1>Buscar Cálculos por Fecha</h1>
+
+        <form th:action="@{/historial-fecha}" method="POST" th:object="${calculadoraData}">
+            <div class="form-group">
+                <label for="fecha">Ingrese la fecha:</label>
+                <input type="date" class="form-control" id="fecha" th:field="*{fecha}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-light">Calcular</a>
+        </form>
+
+
+
+
+        <!--    <p  th:text="${historialFecha}">
+
+
+                    <h1>Cálculos para la Fecha: <span th:text="${fecha}"></span></h1>
+
+                    <table border="1">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Operando 1</th>
+                            <th>Operando 2</th>
+                            <th>Operador</th>
+                            <th>Resultado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="historial : ${historialFecha}">
+                            <td th:text="${historial.id}"></td>
+                            <td th:text="${historial.operando1}"></td>
+                            <td th:text="${historial.operando2}"></td>
+                            <td th:text="${historial.operador}"></td>
+                            <td th:text="${historial.resultado}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+    -->
+        </div>
+        </main>
+        <script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

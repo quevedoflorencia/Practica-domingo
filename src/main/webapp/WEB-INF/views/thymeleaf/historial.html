@@ -9,22 +9,16 @@
 <body>
 <main role="main" class="container">
     <div class="container pt-2">
-        <h1 id="resultados">Historial de Cálculos</h1> <!--
-        <div th:each="hitorial : ${historial}">
-
-            <h2 th:text="${historial.resultado}"></span></h2>
-        </div> -->
-
+        <h1 id="resultados">Historial de Cálculos</h1>
             <ul>
                 <li th:each="historial : ${historial}">
-                    <span th:text="${historial.id}"></span>
-                    <span th:text="${historial.operando1}"></span>
-                    <span th:text="${historial.operador}"></span>
-                    <span th:text="${historial.operando2}"></span> =
-                    <span th:text="${historial.resultado}"></span>
+
+                    <h4>Cálculo N°: <span th:text="${historial.id}"></span> Fecha: <span th:text="${historial.fecha}"></span> Operación: <span th:text="${historial.operando1}"></span>  <span th:text="${historial.operador}"></span> <span th:text="${historial.operando2}"></span> =  <span th:text="${historial.resultado}"></span> </h4>
+
                 </li>
             </ul>
         </div>
+    <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-success">Ir a Calculadora</a>
     </div>
 </main>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>

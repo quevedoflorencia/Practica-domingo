@@ -48,23 +48,24 @@ public class ControladorLoginTest {
 		assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("Usuario o clave incorrecta"));
 		verify(sessionMock, times(0)).setAttribute("ROL", "ADMIN");
 	}
-	
+
 	@Test
 	public void loginConUsuarioYPasswordCorrectosDeberiaLLevarAHome(){
-		// preparacion
+		// preparación
 		Usuario usuarioEncontradoMock = mock(Usuario.class);
 		when(usuarioEncontradoMock.getRol()).thenReturn("ADMIN");
 
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(usuarioEncontradoMock);
-		
-		// ejecucion
+
+		// ejecución
 		ModelAndView modelAndView = controladorLogin.validarLogin(datosLoginMock, requestMock);
-		
-		// validacion
-		assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/home"));
+
+		// validación
+		assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/calculadora"));  // Cambiar a "/calculadora"
 		verify(sessionMock, times(1)).setAttribute("ROL", usuarioEncontradoMock.getRol());
 	}
+
 
 	@Test
 	public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente {

@@ -20,13 +20,14 @@ public class RepositorioCalculadoraImpl implements RepositorioCalculadora {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioCalculadoraImpl (SessionFactory sessionFactory){this.sessionFactory=sessionFactory;}
+    public RepositorioCalculadoraImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void guardarCalculo(CalculadoraData calculadoraData) {
         sessionFactory.getCurrentSession().save(calculadoraData);
     }
-
 
     @Override
     public List<CalculadoraData> obtenerHistorial() {
@@ -36,18 +37,12 @@ public class RepositorioCalculadoraImpl implements RepositorioCalculadora {
                 .list();
     }
 
-
     @Override
-
     public List<CalculadoraData> obtenerCalculosPorFecha(LocalDate fechaABuscar) {
-        Session session= sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Date fechaBuscar = Date.from(fechaABuscar.atStartOfDay(ZoneId.systemDefault()).toInstant());
-          return session.createCriteria(CalculadoraData.class)
-                .add(Restrictions.eq("fecha",fechaABuscar))
+        return session.createCriteria(CalculadoraData.class)
+                .add(Restrictions.eq("fecha", fechaBuscar))
                 .list();
     }
-
-
-
-
 }

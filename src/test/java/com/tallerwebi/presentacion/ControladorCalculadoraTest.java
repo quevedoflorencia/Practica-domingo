@@ -28,6 +28,16 @@ public class ControladorCalculadoraTest {
     }
 
     @Test
+    public void queLuegoDeLoguarseElUsuarioVeaLaCalculadoraVacia(){
+        //  Usuario usuario = new Usuario(1L, "test@unlam.edu.ar", "test", "ADMIN", true);
+
+        ModelAndView mav = controladorCalculadora.mostrarCalculadora();
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("calculadora"));
+
+    }
+
+    @Test
     public void queAlSolicitarUnCalculoArrojeElResultadoCorrecto(){
         // preparación
         // double resultadoCalculo = 0.0;

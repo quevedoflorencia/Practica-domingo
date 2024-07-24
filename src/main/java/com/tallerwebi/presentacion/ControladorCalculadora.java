@@ -44,17 +44,32 @@ public class ControladorCalculadora {
     @RequestMapping("/calculadora")
     public ModelAndView mostrarCalculadora() {
         ModelMap modelo = new ModelMap();
+
+
         modelo.put("calculadoraData", new CalculadoraData());
+
         return new ModelAndView("calculadora", modelo);
     }
 
     @RequestMapping(path = "/calcular", method = RequestMethod.POST)
-    public ModelAndView procesarFormulario(@ModelAttribute("calculadoraData") CalculadoraData calculadoraData) {
+    public ModelAndView procesarFormulario(@ModelAttribute("calculadoraData") CalculadoraData calculadoraData, HttpServletRequest request) {
         ModelMap modelo = new ModelMap();
+        /*
+        Long usuarioId = (Long) request.getSession().getAttribute("ID");
+        if (usuarioId == null) {
+            // Manejar el caso en que el usuario no esté autenticado
+            return new ModelAndView("redirect:/login");
+        }*/
 
         double resultadoFinal = servicioCalculadora.calcular(calculadoraData.getOperando1(), calculadoraData.getOperando2(), calculadoraData.getOperador());
+
         calculadoraData.setResultado(resultadoFinal);
         calculadoraData.setFecha(LocalDate.now());
+
+
+
+
+
         servicioCalculadora.guardarCalculo(calculadoraData);
         modelo.put("resultadoFinal", resultadoFinal);
         modelo.put("historial", servicioCalculadora.obtenerHistorial());

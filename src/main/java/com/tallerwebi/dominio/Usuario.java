@@ -1,9 +1,8 @@
 package com.tallerwebi.dominio;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -15,6 +14,11 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
+
+    @OneToMany (mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<CalculadoraData> historialCalculos=new ArrayList<>();;
+
+
 
     public Long getId() {
         return id;
@@ -53,5 +57,13 @@ public class Usuario {
 
     public void activar() {
         activo = true;
+    }
+
+    public List<CalculadoraData> getHistorialCalculos() {
+        return historialCalculos;
+    }
+
+    public void setHistorialCalculos(List<CalculadoraData> historialCalculos) {
+        this.historialCalculos = historialCalculos;
     }
 }

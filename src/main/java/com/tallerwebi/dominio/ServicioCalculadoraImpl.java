@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hibernate.query.criteria.internal.ValueHandlerFactory.isNumeric;
+
 @Service
 @Transactional
 public class ServicioCalculadoraImpl implements ServicioCalculadora{
@@ -22,6 +24,9 @@ public class ServicioCalculadoraImpl implements ServicioCalculadora{
     public double calcular(double oper1, double oper2, String operador) {
         double resultado = 0;
 
+        if (!isNumeric(oper1)||!isNumeric(oper2)){
+            throw new IllegalArgumentException("Debe ingresar numeros, no letras");
+        }
         switch (operador) {
             case "+":
                 resultado = oper1 + oper2;

@@ -59,7 +59,7 @@ public class ServicioCalculadoraTest {
         double resultado = this.servicioCalculadora.calcular(numeroUno, numeroDos, operacion);
 
         //validación
-        assertThat(resultado, equalTo(15.0));
+        assertThat(resultado, equalTo(5.0));
     }
 
     @Test

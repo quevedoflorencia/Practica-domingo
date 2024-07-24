@@ -78,13 +78,15 @@ public class ControladorCalculadora {
         LocalDate fechaABuscar= calculadoraData.getFecha();
 
         List<CalculadoraData> historialPorFecha =servicioCalculadora.obtenerCalculosPorFecha(fechaABuscar);
-
+        modelo.put("historialFecha", historialPorFecha);
+        return new ModelAndView("historial-fecha", modelo);
+        /*
         if (historialPorFecha.isEmpty()) {
             modelo.put("mensaje", "No se encontraron cálculos para la fecha ingresada.");
         } else {
             modelo.put("historialFecha", historialPorFecha);
         }
-        return new ModelAndView("historial-fecha", modelo);
+        return new ModelAndView("historial-fecha", modelo);*/
     }
 
 

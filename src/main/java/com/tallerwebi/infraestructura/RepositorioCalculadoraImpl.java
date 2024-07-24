@@ -36,7 +36,7 @@ public class RepositorioCalculadoraImpl implements RepositorioCalculadora {
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
-
+/*
     @Override
     public List<CalculadoraData> obtenerCalculosPorFecha(LocalDate fechaABuscar) {
         Session session = sessionFactory.getCurrentSession();
@@ -44,5 +44,10 @@ public class RepositorioCalculadoraImpl implements RepositorioCalculadora {
         return session.createCriteria(CalculadoraData.class)
                 .add(Restrictions.eq("fecha", fechaBuscar))
                 .list();
+    }*/
+
+    @Override
+    public List<CalculadoraData> obtenerCalculosPorFecha(LocalDate fechaABuscar) {
+        return sessionFactory.getCurrentSession().createCriteria(CalculadoraData.class).add(Restrictions.eq("fecha",fechaABuscar)).list();
     }
 }

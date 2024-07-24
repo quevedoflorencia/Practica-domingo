@@ -19,6 +19,15 @@
             <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-light">Calcular</a>
         </form>
     </div>
+
+    <ul>
+        <li th:each="calculo : ${historialFecha}">
+
+            <h4>Cálculo N°: <span th:text="${calculo.id}"></span> Fecha: <span th:text="${calculo.fecha}"></span> Operación: <span th:text="${calculo.operando1}"></span>  <span th:text="${calculo.operador}"></span> <span th:text="${calculo.operando2}"></span> =  <span th:text="${calculo.resultado}"></span> </h4>
+
+        </li>
+    </ul>
+    </p>
 </main>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 </body>

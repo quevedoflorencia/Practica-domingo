@@ -13,21 +13,52 @@
         <form th:action="@{/historial-fecha}" method="post" th:object="${calculadoraData}">
             <div class="form-group">
                 <label for="fecha">Ingrese la fecha:</label>
-                <input type="date" class="form-control" id="fecha" th:field="*{fecha}" required>
+                <input type="date" class="form-control mb-3" id="fecha" th:field="*{fecha}" required>
             </div>
-            <button type="submit" class="btn btn-primary">Buscar</button>
-            <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-light">Calcular</a>
+            <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+            <a th:href="@{'/calculadora'}" class="btn btn-outline-success btn-ligth mb-3">Calculadora</a>
+
         </form>
     </div>
+    <div class="container">
+        <!-- <h1>Historial de Cálculos</h1>-->
+        <div th:if="${mensaje}">
+            <div class="alert alert-danger" role="alert">
+                <p th:text="${mensaje}"></p>
+            </div>
+        </div>
+        <div th:if="${historialFecha}">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Operando 1</th>
+                    <th>Operador</th>
+                    <th>Operando 2</th>
+                    <th>Resultado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="calculo : ${historialFecha}">
+                    <td th:text="${calculo.operando1}"></td>
+                    <td th:text="${calculo.operador}"></td>
+                    <td th:text="${calculo.operando2}"></td>
+                    <td th:text="${calculo.resultado}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <a th:href="@{'/historial'}" class="btn btn-primary">Buscar otra fecha</a>-->
+     </div>
+     <!--
+     <ul>
+         <li th:each="calculo : ${historialFecha}">
 
-    <ul>
-        <li th:each="calculo : ${historialFecha}">
+             <h4>Cálculo N°: <span th:text="${calculo.id}"></span> Operación: <span th:text="${calculo.operando1}"></span>  <span th:text="${calculo.operador}"></span> <span th:text="${calculo.operando2}"></span> =  <span th:text="${calculo.resultado}"></span> </h4>
 
-            <h4>Cálculo N°: <span th:text="${calculo.id}"></span> Fecha: <span th:text="${calculo.fecha}"></span> Operación: <span th:text="${calculo.operando1}"></span>  <span th:text="${calculo.operador}"></span> <span th:text="${calculo.operando2}"></span> =  <span th:text="${calculo.resultado}"></span> </h4>
-
-        </li>
-    </ul>
-    </p>
+         </li>
+     </ul>
+     <p th:if="${mensaje != null}" class="alert alert-danger" th:text=" ${mensaje}">
+     </p>-->
 </main>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 </body>

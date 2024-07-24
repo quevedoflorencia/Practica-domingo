@@ -66,8 +66,14 @@ public class ControladorCalculadora {
     public ModelAndView procesarFormulario() {
         ModelMap modelo = new ModelMap();
         List<CalculadoraData> historial = servicioCalculadora.obtenerHistorial();
-        modelo.put("historial", historial);
+
+        if (historial.isEmpty()) {
+            modelo.put("mensaje", "Aún no hay cálculos.");
+        } else {
+            modelo.put("historial", historial);
+        }
         return new ModelAndView("historial", modelo);
+
     }
 
     @RequestMapping(path = "/historial-fecha", method = RequestMethod.GET)
@@ -80,11 +86,14 @@ public class ControladorCalculadora {
     @RequestMapping(path = "/historial-fecha", method = RequestMethod.POST)
     public ModelAndView historialPorFechaIngresada(@ModelAttribute("calculadoraData") CalculadoraData calculadoraData) {
         ModelMap modelo = new ModelMap();
+        LocalDate fechaBuscada = calculadoraData.getFecha();
+        List<CalculadoraData> historialPorFecha = servicioCalculadora.obtenerCalculosPorFecha(fechaBuscada);
 
-        LocalDate fechaABuscar = calculadoraData.getFecha();
-        List<CalculadoraData> historialPorFecha = servicioCalculadora.obtenerCalculosPorFecha(fechaABuscar);
-        modelo.put("historialFecha", historialPorFecha);
-
+        if (historialPorFecha.isEmpty()) {
+            modelo.put("mensaje", "No se encontraron cálculos para la fecha ingresada.");
+        } else {
+            modelo.put("historialFecha", historialPorFecha);
+        }
         return new ModelAndView("historial-fecha", modelo);
     }
 }

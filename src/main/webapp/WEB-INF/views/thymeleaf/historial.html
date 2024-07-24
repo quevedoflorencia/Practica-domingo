@@ -10,6 +10,9 @@
 <main role="main" class="container">
     <div class="container pt-2">
         <h1 id="resultados">Historial de Cálculos</h1>
+        <div th:if="${historial==null}">
+            <div class="alert alert-danger" role="alert"><span th:text="${mensaje}"></span></div>
+        </div>
             <ul>
                 <li th:each="historial : ${historial}">
 
@@ -18,7 +21,7 @@
                 </li>
             </ul>
         </div>
-    <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-success">Ir a Calculadora</a>
+    <a th:href="@{'/calculadora'}" class="btn btn-outline-success btn-ligth">Ir a Calculadora</a>
     </div>
 </main>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>

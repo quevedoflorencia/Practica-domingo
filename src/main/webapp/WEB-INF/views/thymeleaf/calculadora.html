@@ -19,7 +19,7 @@
         <label for="operando2">Operando 2:</label>
         <input type="number" class="form-control" id="operando2" th:field="*{operando2}" required>
       </div>
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label for="operador">Operación:</label>
         <select class="form-control" id="operador" th:field="*{operador}" required>
           <option value="+">Sumar</option>
@@ -29,8 +29,8 @@
         </select>
       </div>
       <button type="submit" class="btn btn-primary">Calcular</button>
-      <a th:href="@{'/calculadora'}" class="btn btn-outline-dark btn-light">Resetear</a>
-      <a th:href="@{'/historial'}" class="btn btn-outline-dark btn-light">Historial</a>
+      <a th:href="@{'/calculadora'}" class="btn btn-outline-danger btn-light">Resetear</a>
+      <a th:href="@{'/historial'}" class="btn btn-light btn-outline-dark ">Historial</a>
       <a th:href="@{'/historial-fecha'}" class="btn btn-outline-dark btn-light">Historial por fecha</a>
     </form>
     <div th:if="${resultadoFinal != null}">
@@ -39,8 +39,8 @@
     <div th:if="${error != null}">
       <h2>Error: <span th:text="${error}"></span></h2>
     </div>
-    <div>
-      <h2>Historial de Cálculos</h2>
+    <div class="mb-3">
+      <h2 th:if="${historial}">Historial de Cálculos</h2>
 
       <ul>
         <li th:each="calculo : ${historial}">

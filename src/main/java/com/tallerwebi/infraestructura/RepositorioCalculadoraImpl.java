@@ -16,7 +16,9 @@ public class RepositorioCalculadoraImpl implements RepositorioCalculadora {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioCalculadoraImpl (SessionFactory sessionFactory){this.sessionFactory=sessionFactory;}
+    public RepositorioCalculadoraImpl (SessionFactory sessionFactory){
+        this.sessionFactory=sessionFactory;
+    }
 
     @Override
     public void guardarCalculo(CalculadoraData calculadoraData) {

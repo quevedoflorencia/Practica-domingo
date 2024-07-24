@@ -59,6 +59,7 @@ public class ServicioCalculadoraImpl implements ServicioCalculadora{
     }
 
     public List<CalculadoraData> obtenerHistorial() {
+
         return repositorioCalculadora.obtenerHistorial();
     }
 }

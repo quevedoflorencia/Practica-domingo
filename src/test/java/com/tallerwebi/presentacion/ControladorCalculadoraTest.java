@@ -53,7 +53,7 @@ public class ControladorCalculadoraTest {
         calculosMock.add(new CalculadoraData(7.0, 3.0,"+"));
 
 
-        when(this.servicioCalculadora.calcular(6.0, 3.0, "+")).thenReturn(9.0);
+        //when(this.servicioCalculadora.calcular(6.0, 3.0, "+")).thenReturn(9.0);
 
         /*Para la lista de historial*/
         /*when(this.servicioCalculadora.calcular(2.0, 4.0, "+")).thenReturn(6.0);
@@ -71,7 +71,7 @@ public class ControladorCalculadoraTest {
 
         //CalculadoraData calculoDos = new CalculadoraData(2.0, 5.0, "*", 10.0);
 
-        doNothing().when(this.servicioCalculadora).guardarCalculo(calculo);
+        //doNothing().when(this.servicioCalculadora).guardarCalculo(calculo); //doNothing porque guardarCalculo es void.
 
         /*Para la lista de historial*/
         /*doNothing().when(this.servicioCalculadora).guardarCalculo(calculoDos);
@@ -86,10 +86,17 @@ public class ControladorCalculadoraTest {
 
 
         //verificación
-       // assertThat(mav.getModel().get("resultadoFinal"), equalTo(9.0)); //
-        //List<CalculadoraData>calculos=(List<CalculadoraData>) mav.getModel().get("historial");
+
+        //Testeo que el resultado sea correcto
+        //assertThat(mav.getModel().get("resultadoFinal"), equalTo(9.0)); //
+
+
+        //Testeo que el historial tenga la cantidad de calculos correcto
+        //List<CalculadoraData> calculos = (List<CalculadoraData>) mav.getModel().get("historial");
         //assertThat(calculos.size(), equalTo(4)); // Existan 4 elemento
 
+
+        //Testeo que devuelva la vista correcta que es "Calculadora"
         assertThat(mav.getViewName(), equalToIgnoringCase("calculadora")); // Vista correcta
 
     }

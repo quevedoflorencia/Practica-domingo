@@ -59,10 +59,9 @@ public class RepositorioCalculadoraTest {
 
 
         //validación
-
         sessionFactory.getCurrentSession().save(calculadoraData);
 
-
+        //assertThat(calculadoraData.getResultado(), is(notNullValue()));
         assertThat(calculadoraData.getResultado(), equalTo(8.0));
 
     }

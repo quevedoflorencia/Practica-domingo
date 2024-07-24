@@ -127,6 +127,7 @@ public class ServicioCalculadoraTest {
     }
 
 
+    // A este escenario nunca llega porque al ser tipado no me deja mandar un valor no numérico.
     @Test
     public void queSePuedaProcesarLaOperacion(){
         //preparación
@@ -181,5 +182,8 @@ public class ServicioCalculadoraTest {
         verify(this.repositorioCalculadora, times(2)).obtenerHistorial();
     }
 
+    /*verify(...): Este método de Mockito se usa para verificar que un método en un objeto simulado fue llamado.
+    Aquí, se está verificando que el método obtenerHistorial() se llamó en el objeto simulado repositorioCalculadora.
+    */
 
 }
